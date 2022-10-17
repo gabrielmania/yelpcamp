@@ -3,8 +3,9 @@ const Campground = require("../models/campground");
 const cities = require("./cities");
 const { descriptors, places } = require("./seedHelpers");
 
+// "mongodb://localhost:27017/yelp-camp"
 mongoose
-  .connect("mongodb://localhost:27017/yelp-camp")
+  .connect("mongodb+srv://admin:TFCXMHIiUFdJTSOk@cluster0.0epbm8v.mongodb.net/?retryWrites=true&w=majority")
   .then(() => {
     console.log("Database connected");
   })
@@ -26,7 +27,7 @@ async function seedDB() {
       title: `${sample(descriptors)} ${sample(places)}`,
       description:
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos possimus eligendi reiciendis expedita minima? Laudantium esse quaerat odio incidunt harum tenetur cum quidem qui, reprehenderit consequatur dolores cumque? Ab, cumque!",
-      author: "633ffc6f03af61c2bc226551",
+      author: "63498bf70cadcee4740d918f",
       geometry: {
         type: "Point",
         coordinates: [
