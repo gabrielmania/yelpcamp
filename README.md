@@ -1,6 +1,6 @@
 This is a code along project in a Web Development Bootcamp by Colt Steele posted in Udemy.
 
-Link to the website: [YelpCamp](https://protected-shelf-20471.herokuapp.com/)
+**Link to the website:** [YelpCamp](https://protected-shelf-20471.herokuapp.com/)
 
 **Frameworks**
 
