@@ -1,3 +1,4 @@
+//Bootstrap validation script for forms
 (() => {
   "use strict";
 

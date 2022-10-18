@@ -1,3 +1,4 @@
+//Controller for the campgrounds routes
 const Campground = require("../models/campground");
 const { cloudinary } = require("../cloudinary");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
@@ -5,11 +6,13 @@ const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
+//Homepage
 module.exports.index = async (req, res) => {
   const campgrounds = await Campground.find({});
   res.render("campgrounds/index", { campgrounds });
 };
 
+//To create a new campground
 module.exports.newCampground = async (req, res, next) => {
   const geoData = await geocoder
     .forwardGeocode({
@@ -30,10 +33,12 @@ module.exports.newCampground = async (req, res, next) => {
   res.redirect(`campgrounds/${campground._id}`);
 };
 
+//To get the new campground form
 module.exports.renderNewForm = (req, res) => {
   res.render("campgrounds/new");
 };
 
+///To show the campground
 module.exports.showCampground = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findById(id)
@@ -47,6 +52,7 @@ module.exports.showCampground = async (req, res) => {
   }
 };
 
+//Request to get the edit form
 module.exports.renderEditForm = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
@@ -58,6 +64,7 @@ module.exports.renderEditForm = async (req, res) => {
   }
 };
 
+//To post the edited campground
 module.exports.editCampground = async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findByIdAndUpdate(id, {
@@ -81,6 +88,7 @@ module.exports.editCampground = async (req, res) => {
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
+//For deleting campground
 module.exports.deleteCampground = async (req, res) => {
   const { id } = req.params;
   await Campground.findByIdAndDelete(id);

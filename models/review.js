@@ -1,3 +1,4 @@
+//Model for the reviews
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

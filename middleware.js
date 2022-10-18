@@ -3,6 +3,7 @@ const ExpressError = require("./utils/ExpressError");
 const Campground = require("./models/campground");
 const Review = require("./models/review");
 
+//For checking if a user is already loggedin
 module.exports.isLoggedIn = (req, res, next) => {
   const { id } = req.params;
   if (!req.isAuthenticated()) {
@@ -14,6 +15,7 @@ module.exports.isLoggedIn = (req, res, next) => {
   next();
 };
 
+//Validation for the campground
 module.exports.validateCampground = (req, res, next) => {
   const { error } = campgroundSchema.validate(req.body);
   if (error) {
@@ -24,6 +26,7 @@ module.exports.validateCampground = (req, res, next) => {
   }
 };
 
+//To check if the user is the author of the campground
 module.exports.isAuthor = async (req, res, next) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
@@ -34,6 +37,7 @@ module.exports.isAuthor = async (req, res, next) => {
   next();
 };
 
+//To check if the user is the author of the review
 module.exports.isReviewAuthor = async (req, res, next) => {
   const { id, reviewId } = req.params;
   const review = await Review.findById(reviewId);
@@ -44,6 +48,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
   next();
 };
 
+//Will validate the review
 module.exports.validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {

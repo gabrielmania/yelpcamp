@@ -47,6 +47,7 @@ app.use(flash());
 app.use(mongoSanitize({ replaceWith: "_" }));
 app.use(helmet({ crossOriginEmbedderPolicy: false }));
 
+//Helmet config for allowing outside contents
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
   "https://api.tiles.mapbox.com/",
@@ -92,6 +93,7 @@ app.use(
   })
 );
 
+//Config to store the session in the MongoDB Atlas
 const secret = process.env.SECRET || "thisshouldbeabettersecret!";
 const store = MongoStore.create({
   mongoUrl: dbUrl,
@@ -105,6 +107,7 @@ store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e);
 });
 
+//Sessions setting
 app.use(
   session({
     store,
@@ -121,6 +124,7 @@ app.use(
   })
 );
 
+//Passport config for user authentication and authorization
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -128,6 +132,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//Flash config for notifications
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
@@ -135,6 +140,7 @@ app.use((req, res, next) => {
   next();
 });
 
+//Routes
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 app.use("/", userRoutes);

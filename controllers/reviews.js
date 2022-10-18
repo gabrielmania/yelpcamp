@@ -1,6 +1,8 @@
+//Controller for the Reviews route.
 const Campground = require("../models/campground");
 const Review = require("../models/review");
 
+//For post of new review
 module.exports.createReview = async (req, res) => {
   const campground = await Campground.findById(req.params.id);
   const review = new Review(req.body.review);
@@ -12,6 +14,7 @@ module.exports.createReview = async (req, res) => {
   res.redirect(`/campgrounds/${campground._id}`);
 };
 
+//To delete an existing review
 module.exports.deleteReview = async (req, res) => {
   const { id, reviewId } = req.params;
   await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

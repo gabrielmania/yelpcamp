@@ -1,12 +1,15 @@
+//Mongoose model for the campgrounds
 const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
 
+//Image schema for image upload
 const ImageSchema = new Schema({
   url: String,
   filename: String,
 });
 
+//Virtual for image thumbnail
 ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 });
@@ -44,6 +47,7 @@ const campgroundSchema = new Schema(
   opts
 );
 
+//Middleware to delete all the reviews associated with a campground if the campground is deleted
 campgroundSchema.post("findOneAndDelete", async (doc) => {
   if (doc) {
     await Review.deleteMany({
@@ -54,6 +58,7 @@ campgroundSchema.post("findOneAndDelete", async (doc) => {
   }
 });
 
+//Virtuals for rendering the campgrounds details in the maps.
 campgroundSchema.virtual("properties.popupMarkup").get(function () {
   return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
     <p>${this.description.substring(0, 50)}...</p>`;

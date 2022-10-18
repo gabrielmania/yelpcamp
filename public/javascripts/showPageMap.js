@@ -1,3 +1,4 @@
+//Settings for the map in the show campgrounds page
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: "map", // container ID

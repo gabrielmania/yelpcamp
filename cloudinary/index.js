@@ -1,3 +1,4 @@
+//Cloudinary config and schema for uploading and downloading photos for the site
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 

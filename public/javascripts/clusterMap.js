@@ -1,3 +1,4 @@
+//Settings for the cluster map in the campground index page
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
   container: "cluster-map",
